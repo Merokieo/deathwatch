@@ -21,49 +21,47 @@
     }
 
     .letter-wrapper {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       width: 300px;
       height: 200px;
+      background: #fff0f5;
+      border-radius: 20px;
+      border: 2px solid #c94f7c;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
+      overflow: hidden;
     }
 
     .letter-wrapper:hover {
       transform: scale(1.05);
     }
 
+    .letter-wrapper.open {
+      width: 90vw;
+      height: 90vh;
+      flex-direction: column;
+      padding: 20px;
+    }
+
     .envelope {
-      width: 100%;
-      height: 100%;
-      background: #fff0f5;
-      border: 2px solid #c94f7c;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.4s ease;
+      transition: opacity 0.4s ease;
+    }
+
+    .letter-wrapper.open .envelope {
+      opacity: 0;
     }
 
     .letter-content {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      padding: 20px;
-      border-radius: 15px;
-      background: rgba(255, 255, 255, 0.98);
       opacity: 0;
       transform: scaleY(0);
       transform-origin: top;
-      transition: all 0.4s ease;
+      transition: all 0.5s ease;
       overflow-y: auto;
+      max-height: 100%;
     }
 
     .letter-wrapper.open .letter-content {
@@ -71,22 +69,17 @@
       transform: scaleY(1);
     }
 
-    .letter-wrapper.open .envelope {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.5em;
+      font-size: 3em;
       margin-bottom: 10px;
       color: #c94f7c;
     }
 
     p {
-      font-size: 1.1em;
+      font-size: 1.2em;
       line-height: 1.7;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     .footer {
@@ -94,27 +87,35 @@
       color: #999;
       margin-top: 20px;
     }
+
+    audio {
+      display: none;
+    }
   </style>
 </head>
 <body>
+
+  <!-- 🎵 Background Music -->
   <audio autoplay loop>
-    <source src="https://rr4---sn-hgn7yn76.googlevideo.com/videoplayback?expire=1752203950&ei=Ti5waL6fDOOghcIPy5-c2QU&ip=176.1.137.80&id=o-AHW22aEn4ULUccFqqYZ2s-jaLYUJQnRfBT0fOuQ2SXHc&itag=140&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&bui=AY1jyLMkI_mEEH3HXrA94ViirZTgp61PoxgNj5vrHIPLPmiUdzjzU5zCKFL-G5GKzJ-PLqS6hZwJvyo0&spc=l3OVKfW9EWG7lgpgtvweN1RuudwLzh8UiHs4ahjCuOo_-rxtAb3N&vprv=1&svpuc=1&mime=audio%2Fmp4&ns=8uG4nVC00zYT7I_Fs-nQI28Q&rqh=1&gir=yes&clen=2898852&dur=179.072&lmt=1714405898814268&keepalive=yes&fexp=24350590,24350737,24350827,24350961,24351316,24351318,24351528,24351907,24352160,24352220,24352297,24352299,24352322,24352334,24352336,24352394,24352396,24352402,24352404,24352452,24352454,24352457,24352460,24352466,24352517,24352519,24352535,24352537,51331020,51476175&c=MWEB&sefc=1&txp=4432434&n=Dldf4tagAs-3gQ&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cns%2Crqh%2Cgir%2Cclen%2Cdur%2Clmt&sig=AJfQdSswRgIhAKt-daTMIQvGyzR8-oassH0zRpGwqazhSXaFuHmBXYNHAiEA0wE6fVd3RDM_imJn1hjtM8IOmINwE0gDQdU4DMeEvvk%3D&pot=MnQQY-hYyaPd3hBf2bqdx-GydBDujU3Zkxbjjqo8zE6YrD4A1qh-14Mj12DVbiKKrrlPN7qBogxcubMfYNIdGY33pnpiEfJ8-ppepeLWJf1n3Km2uJALpZncYaU_fhqDw8tEKjYdgAgpqqElyrk47wC3i71SkA==&rm=sn-uxax4vopj5qx-q0n67s,sn-4g5eye7z&rrc=79,104&req_id=9e72214fc102a3ee&rms=rdu,au&redirect_counter=2&cms_redirect=yes&cmsv=e&ipbypass=yes&met=1752182352,&mh=0h&mip=41.143.34.234&mm=29&mn=sn-hgn7yn76&ms=rdu&mt=1752181994&mv=m&mvi=4&pl=21&lsparams=ipbypass,met,mh,mip,mm,mn,ms,mv,mvi,pl,rms&lsig=APaTxxMwRAIgFIGYi_KSbm4EbrciHRIjDQODTYOhO9X0UWIZXDhKLO4CICpkP1hpr3i_N13vmtbsTUfbhn430SLBj6hP5AhUCS1r" type="audio/mpeg">
+    <source src="https://example.com/your-song.mp3" type="audio/mpeg">
+    Your browser does not support audio playback.
   </audio>
 
+  <!-- 💌 Expanding Letter -->
   <div class="letter-wrapper" onclick="toggleLetter(this)">
     <div class="envelope">
       <h2>Click to Open the Letter</h2>
     </div>
     <div class="letter-content">
-      <h1>To the Love of My Life</h1>
+      <h1>To Khawla</h1>
       <p>
-        My dearest love,<br><br>
+        My dearest princes,<br><br>
         Words could never truly express how deeply I feel about you, but I wanted to try. Every day I spend with you feels like a dream — your kindness, your smile, the way your heart shines in everything you do.<br><br>
         When we laugh, it's like the world stands still. When we talk, I forget time even exists. And when you're quiet, your presence still fills every corner of my heart.<br><br>
         I want you to know that you are never alone. I’m always with you, in every sunrise, every starlight, every gentle breeze that brushes past your face.<br><br>
         I love you endlessly. You are my calm, my spark, my safe place, and my favorite person — now and always.
       </p>
-      <p class="footer">With all my love,<br>– Your Name</p>
+      <p class="footer">With all my love,<br>– Ayoub</p>
     </div>
   </div>
 

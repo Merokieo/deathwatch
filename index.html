@@ -18,7 +18,8 @@
       align-items: center;
       min-height: 100vh;
       text-align: center;
-      overflow-x: hidden; /* prevent horizontal scroll if hearts go sideways */
+      overflow-x: hidden;
+      position: relative;
     }
 
     .letter-wrapper {
@@ -35,7 +36,8 @@
       cursor: pointer;
       transition: all 0.4s ease;
       overflow: hidden;
-      user-select: none; /* avoid accidental text highlight on click */
+      user-select: none;
+      z-index: 10; /* make sure letter is above hearts */
     }
 
     .letter-wrapper:hover {
@@ -53,7 +55,6 @@
       transition: opacity 0.4s ease;
     }
 
-    /* Fix horizontal text display */
     .envelope h2 {
       white-space: nowrap;
       margin: 0;
@@ -104,7 +105,6 @@
       display: none;
     }
 
-    /* Floating hearts container */
     .hearts-container {
       position: fixed;
       pointer-events: none;
@@ -116,13 +116,13 @@
       z-index: 9999;
     }
 
-    /* Heart shape using CSS */
+    /* Upright heart shape */
     .heart {
       position: absolute;
       width: 20px;
       height: 20px;
       background-color: #c94f7c;
-      transform: rotate(-45deg);
+      transform: rotate(0deg); /* Upright */
       animation: floatUp 2s ease forwards;
       opacity: 0.8;
       filter: drop-shadow(0 0 2px #b03e67);
@@ -140,23 +140,23 @@
     }
 
     .heart::before {
-      top: 0;
-      left: 10px;
+      top: -10px;
+      left: 0;
     }
 
     .heart::after {
-      top: 10px;
-      left: 0;
+      top: 0;
+      left: 10px;
     }
 
     @keyframes floatUp {
       0% {
         opacity: 0.8;
-        transform: translateY(0) rotate(-45deg) scale(1);
+        transform: translateY(0) scale(1);
       }
       100% {
         opacity: 0;
-        transform: translateY(-150px) rotate(-45deg) scale(1.5);
+        transform: translateY(-150px) scale(1.5);
       }
     }
   </style>
@@ -169,11 +169,11 @@
     Your browser does not support audio playback.
   </audio>
 
-  <!-- Container for hearts -->
+  <!-- Hearts container -->
   <div class="hearts-container"></div>
 
   <!-- 💌 Expanding Letter -->
-  <div class="letter-wrapper" onclick="toggleLetter(this, event)">
+  <div class="letter-wrapper" onclick="toggleLetter(this)">
     <div class="envelope">
       <h2>Click to Open the Letter</h2>
     </div>
@@ -191,31 +191,36 @@
   </div>
 
   <script>
-    function toggleLetter(wrapper, event) {
+    // Toggle letter open/close
+    function toggleLetter(wrapper) {
       wrapper.classList.toggle("open");
-      createHearts(event.clientX, event.clientY);
     }
 
-    // Creates multiple hearts at the click position that float up and fade out
-    function createHearts(x, y) {
+    // Create hearts randomly all over screen on any click
+    document.body.addEventListener("click", (e) => {
+      createHeartsRandom();
+    });
+
+    // Create 15 hearts randomly placed in viewport that float up and fade
+    function createHeartsRandom() {
       const container = document.querySelector(".hearts-container");
-      const count = 8; // number of hearts per click
+      const count = 15;
 
       for (let i = 0; i < count; i++) {
         const heart = document.createElement("div");
         heart.classList.add("heart");
 
-        // Random horizontal offset for spread effect
-        const offsetX = (Math.random() - 0.5) * 60;
-        heart.style.left = `${x + offsetX}px`;
+        // Random position anywhere in viewport
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+
+        heart.style.left = `${x}px`;
         heart.style.top = `${y}px`;
 
-        // Random animation duration for variation
         heart.style.animationDuration = 1.5 + Math.random() * 1 + "s";
 
         container.appendChild(heart);
 
-        // Remove heart after animation finishes
         heart.addEventListener("animationend", () => {
           heart.remove();
         });

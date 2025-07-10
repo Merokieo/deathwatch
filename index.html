@@ -2,8 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>To My Love</title>
+  
+  <title>To Hafsa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://i.imgur.com/bAKooWx.png" type="image/png" />
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap');
 
@@ -164,8 +169,8 @@
 <body>
 
   <!-- 🎵 Background Music -->
-  <audio autoplay loop>
-    <source src="https://cdn.githubraw.com/Merokieo/love-letter/main/song.mp3" type="audio/mpeg" />
+  <audio id="bg-music" autoplay loop>
+    <source src="https://raw.githubusercontent.com/Merokieo/love_letter/main/song.mp3" type="audio/mpeg" />
     Your browser does not support audio playback.
   </audio>
 
@@ -178,26 +183,35 @@
       <h2>Click to Open the Letter</h2>
     </div>
     <div class="letter-content">
-      <h1>To Khawla</h1>
+      <h1>To Hafsa</h1>
       <p>
-        My dearest princess,<br /><br />
-        Words could never truly express how deeply I feel about you, but I wanted to try. Every day I spend with you feels like a dream — your kindness, your smile, the way your heart shines in everything you do.<br /><br />
-        When we laugh, it's like the world stands still. When we talk, I forget time even exists. And when you're quiet, your presence still fills every corner of my heart.<br /><br />
-        I want you to know that you are never alone. I’m always with you, in every sunrise, every starlight, every gentle breeze that brushes past your face.<br /><br />
-        I love you endlessly. You are my calm, my spark, my safe place, and my favorite person — now and always.
+        Dear Hafsa,<br /><br />
+        I know things have been tough lately, and I want you to remember you are not alone.<br /><br />
+        Your strength and kindness shine even in the darkest times. When the world feels heavy, know that I’m here to support you every step of the way.<br /><br />
+        Every challenge you face is a step forward, and your courage inspires me more than words can say.<br /><br />
+        Please hold onto hope and remember you are deeply cared for.<br /><br />
+        Sending you all my love and warmest thoughts.
       </p>
-      <p class="footer">With all my love,<br />– Ayoub</p>
+      <p class="footer">With love and friendship,<br />– Ayoub</p>
     </div>
   </div>
 
   <script>
+    // Lower background music volume to 10%
+    window.addEventListener('load', () => {
+      const music = document.getElementById('bg-music');
+      if (music) {
+        music.volume = 0.1;
+      }
+    });
+
     // Toggle letter open/close
     function toggleLetter(wrapper) {
       wrapper.classList.toggle("open");
     }
 
     // Create hearts randomly all over screen on any click
-    document.body.addEventListener("click", (e) => {
+    document.body.addEventListener("click", () => {
       createHeartsRandom();
     });
 
@@ -210,7 +224,6 @@
         const heart = document.createElement("div");
         heart.classList.add("heart");
 
-        // Random position anywhere in viewport
         const x = Math.random() * window.innerWidth;
         const y = Math.random() * window.innerHeight;
 

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>To My Love</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap');
 
@@ -18,6 +18,7 @@
       align-items: center;
       min-height: 100vh;
       text-align: center;
+      overflow-x: hidden; /* prevent horizontal scroll if hearts go sideways */
     }
 
     .letter-wrapper {
@@ -34,6 +35,7 @@
       cursor: pointer;
       transition: all 0.4s ease;
       overflow: hidden;
+      user-select: none; /* avoid accidental text highlight on click */
     }
 
     .letter-wrapper:hover {
@@ -49,6 +51,16 @@
 
     .envelope {
       transition: opacity 0.4s ease;
+    }
+
+    /* Fix horizontal text display */
+    .envelope h2 {
+      white-space: nowrap;
+      margin: 0;
+      font-weight: normal;
+      font-size: 1.4rem;
+      color: #c94f7c;
+      letter-spacing: 0.05em;
     }
 
     .letter-wrapper.open .envelope {
@@ -91,37 +103,123 @@
     audio {
       display: none;
     }
+
+    /* Floating hearts container */
+    .hearts-container {
+      position: fixed;
+      pointer-events: none;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: visible;
+      z-index: 9999;
+    }
+
+    /* Heart shape using CSS */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #c94f7c;
+      transform: rotate(-45deg);
+      animation: floatUp 2s ease forwards;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 2px #b03e67);
+      pointer-events: none;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #c94f7c;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: 0;
+      left: 10px;
+    }
+
+    .heart::after {
+      top: 10px;
+      left: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 0.8;
+        transform: translateY(0) rotate(-45deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-150px) rotate(-45deg) scale(1.5);
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- 🎵 Background Music -->
   <audio autoplay loop>
-    <source src="https://raw.githubusercontent.com/Merokieo/love_letter/main/song.mp3" type="audio/mpeg">
+    <source src="https://raw.githubusercontent.com/Merokieo/love_letter/main/song.mp3" type="audio/mpeg" />
     Your browser does not support audio playback.
   </audio>
 
+  <!-- Container for hearts -->
+  <div class="hearts-container"></div>
+
   <!-- 💌 Expanding Letter -->
-  <div class="letter-wrapper" onclick="toggleLetter(this)">
+  <div class="letter-wrapper" onclick="toggleLetter(this, event)">
     <div class="envelope">
       <h2>Click to Open the Letter</h2>
     </div>
     <div class="letter-content">
       <h1>To Khawla</h1>
       <p>
-        My dearest princes,<br><br>
-        Words could never truly express how deeply I feel about you, but I wanted to try. Every day I spend with you feels like a dream — your kindness, your smile, the way your heart shines in everything you do.<br><br>
-        When we laugh, it's like the world stands still. When we talk, I forget time even exists. And when you're quiet, your presence still fills every corner of my heart.<br><br>
-        I want you to know that you are never alone. I’m always with you, in every sunrise, every starlight, every gentle breeze that brushes past your face.<br><br>
+        My dearest princes,<br /><br />
+        Words could never truly express how deeply I feel about you, but I wanted to try. Every day I spend with you feels like a dream — your kindness, your smile, the way your heart shines in everything you do.<br /><br />
+        When we laugh, it's like the world stands still. When we talk, I forget time even exists. And when you're quiet, your presence still fills every corner of my heart.<br /><br />
+        I want you to know that you are never alone. I’m always with you, in every sunrise, every starlight, every gentle breeze that brushes past your face.<br /><br />
         I love you endlessly. You are my calm, my spark, my safe place, and my favorite person — now and always.
       </p>
-      <p class="footer">With all my love,<br>– Ayoub</p>
+      <p class="footer">With all my love,<br />– Ayoub</p>
     </div>
   </div>
 
   <script>
-    function toggleLetter(wrapper) {
+    function toggleLetter(wrapper, event) {
       wrapper.classList.toggle("open");
+      createHearts(event.clientX, event.clientY);
+    }
+
+    // Creates multiple hearts at the click position that float up and fade out
+    function createHearts(x, y) {
+      const container = document.querySelector(".hearts-container");
+      const count = 8; // number of hearts per click
+
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+
+        // Random horizontal offset for spread effect
+        const offsetX = (Math.random() - 0.5) * 60;
+        heart.style.left = `${x + offsetX}px`;
+        heart.style.top = `${y}px`;
+
+        // Random animation duration for variation
+        heart.style.animationDuration = 1.5 + Math.random() * 1 + "s";
+
+        container.appendChild(heart);
+
+        // Remove heart after animation finishes
+        heart.addEventListener("animationend", () => {
+          heart.remove();
+        });
+      }
     }
   </script>
 </body>

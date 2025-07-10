@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicon -->
-  <link rel="icon" href="https://i.imgur.com/bAKooWx.png" type="image/png" />
+  <link rel="icon" href="https://i.imgur.com/4idYtme.png" type="image/png" />
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap');
@@ -169,7 +169,7 @@
 <body>
 
   <!-- 🎵 Background Music -->
-  <audio id="bg-music" autoplay loop>
+  <audio id="bg-music" loop>
     <source src="https://raw.githubusercontent.com/Merokieo/love_letter/main/song.mp3" type="audio/mpeg" />
     Your browser does not support audio playback.
   </audio>
@@ -190,30 +190,33 @@
         Your strength and kindness shine even in the darkest times. When the world feels heavy, know that I’m here to support you every step of the way.<br /><br />
         Every challenge you face is a step forward, and your courage inspires me more than words can say.<br /><br />
         Please hold onto hope and remember you are deeply cared for.<br /><br />
-        Sending you all my love and warmest thoughts.
+        Sending you all my love and warmest thoughts. Rak Totouz
       </p>
-      <p class="footer">With love and friendship,<br />– Ayoub</p>
+      <p class="footer">With love,<br />– Ayoub</p>
     </div>
   </div>
 
   <script>
-    // Lower background music volume to 10%
-    window.addEventListener('load', () => {
-      const music = document.getElementById('bg-music');
-      if (music) {
-        music.volume = 0.1;
+    // Volume level to 10%
+    const music = document.getElementById('bg-music');
+    music.volume = 0.1;
+
+    // Play music on first user interaction (click)
+    let musicStarted = false;
+    document.body.addEventListener('click', () => {
+      if (!musicStarted) {
+        music.play().catch(() => {
+          // Autoplay might still be blocked, but we tried
+        });
+        musicStarted = true;
       }
+      createHeartsRandom();
     });
 
     // Toggle letter open/close
     function toggleLetter(wrapper) {
       wrapper.classList.toggle("open");
     }
-
-    // Create hearts randomly all over screen on any click
-    document.body.addEventListener("click", () => {
-      createHeartsRandom();
-    });
 
     // Create 15 hearts randomly placed in viewport that float up and fade
     function createHeartsRandom() {

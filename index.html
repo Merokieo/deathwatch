@@ -6,7 +6,9 @@
   <title>Deathwatch - Adeptus Astartes</title>
   <!-- Favicon -->
   <link rel="icon" href="assets/favicon.png" type="image/x-icon" />
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -21,7 +23,7 @@
       padding: 2rem 1rem;
       border-bottom: 2px solid #444;
     }
-    /* Logo image replaces text */
+    /* Deathwatch header logo */
     header img.logo {
       max-width: 300px;
       width: 80%;
@@ -47,10 +49,14 @@
       max-width: 900px;
       margin: auto;
     }
-    section h2 {
-      color: #707070;
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    /* Gothic font for fortress logo caption */
+    .fortress-logo {
+      display: block;
+      margin: 0 auto 1rem;
+      max-width: 200px;
+      width: 60%;
+      height: auto;
+      font-family: 'UnifrakturCook', serif;
     }
     .narration {
       font-style: italic;
@@ -80,8 +86,8 @@
 <body>
   <div class="bg-overlay"></div>
   <header>
-    <!-- Pykeman Fortress logo (provide this image at assets/pykeman-logo.png) -->
-    <img src="assets/pk.png" alt="Fortress Pykeman Logo" class="logo" />
+    <!-- Deathwatch Logo -->
+    <img src="assets/dwheader.png" alt="Deathwatch Logo" class="logo" />
   </header>
   <nav>
     <a href="#fortress">Fortress Pykeman</a>
@@ -91,7 +97,8 @@
 
   <!-- Fortress Section -->
   <section id="fortress">
-    <h2>Watch Fortress Pykeman</h2>
+    <!-- Pykeman Fortress logo in gothic style -->
+    <img src="assets/pk.png" alt="Fortress Pykeman Logo" class="fortress-logo" />
     <p class="narration">“I am Watch Commander Heimdall of the Emperor’s Spears. From atop these stone bastions, we stand eternal vigil against the xenos scourge. Fortress Pykeman, carved from the ash wastes of Baal Secundus, houses relics of battles lost and spoils of victories won. Its ramparts echo with the prayers of a thousand battle-brothers, and within its cathedrals, the whispering servo-skulls recount deeds of valor to fortify our souls. Here, we await the clarion call to arms, ready to rend the alien tide in righteous fury.”</p>
   </section>
 
@@ -99,9 +106,9 @@
   <section id="killteams">
     <h2>Kill-Teams</h2>
     <ul>
-      <li>Kill-Team #1: N/A</li>
-      <li>Kill-Team #2: N/A<</li>
-      <li>Kill-Team #3: N/A<</li>
+      <li>Kill-Team Omega: N/A </li>
+      <li>Kill-Team N/A </li>
+      <li>Kill-Team N/A </li>
     </ul>
   </section>
 
@@ -112,7 +119,7 @@
   </section>
 
   <footer>
-    <p>© WATCH FORTRESS PYKEMAN | DEATHWATCH</p>
+    <p>WATCH FORTRESS PYKEMAN, DEATHWATCH, INQUISITION</p>
   </footer>
 
   <!-- Background music: autoplay and loop hidden -->

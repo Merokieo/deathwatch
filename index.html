@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Deathwatch - Adeptus Astartes</title>
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.png" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -19,11 +21,11 @@
       padding: 2rem 1rem;
       border-bottom: 2px solid #444;
     }
-    header h1 {
-      font-size: 3rem;
-      margin: 0;
-      letter-spacing: 3px;
-      color: #d6af3f;
+    /* Logo image replaces H1 text */
+    header img.logo {
+      max-width: 300px;
+      width: 80%;
+      height: auto;
     }
     nav {
       display: flex;
@@ -75,7 +77,8 @@
 <body>
   <div class="bg-overlay"></div>
   <header>
-    <h1>DEATHWATCH</h1>
+    <!-- Replace this src with your provided image path -->
+    <img src="assets/dwheader.png" alt="Deathwatch Logo" class="logo" />
     <p>The Shield Against the Xenos</p>
   </header>
   <nav>
@@ -117,9 +120,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const bgMusic = document.querySelector('audio.bg-music');
-      // Try to play (some browsers require user interaction)
       bgMusic.play().catch(() => {
-        // Listen for first user interaction to start music
         const startMusic = () => {
           bgMusic.play();
           window.removeEventListener('click', startMusic);

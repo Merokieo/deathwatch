@@ -66,11 +66,9 @@
       opacity: 0.08;
       z-index: -1;
     }
-    audio {
-      position: fixed;
-      bottom: 10px;
-      left: 10px;
-      z-index: 10;
+    /* Hide audio controls */
+    audio.bg-music {
+      display: none;
     }
   </style>
 </head>
@@ -109,9 +107,26 @@
   <footer>
     <p>© Deathwatch LARP Command | For the Emperor!</p>
   </footer>
-  <audio autoplay loop controls>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/31/audio_19c6658c6d.mp3?filename=dark-ambience-110093.mp3" type="audio/mp3">
+  <!-- Background music: autoplay and loop hidden -->
+  <audio class="bg-music" autoplay loop>
+    <source src="hhttps://raw.githubusercontent.com/Merokieo/deathwatch/main/ambience.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
+
+  <!-- Optional JS fallback to ensure playback on user interaction -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const bgMusic = document.querySelector('audio.bg-music');
+      // Try to play (some browsers require user interaction)
+      bgMusic.play().catch(() => {
+        // Listen for first user interaction to start music
+        const startMusic = () => {
+          bgMusic.play();
+          window.removeEventListener('click', startMusic);
+        };
+        window.addEventListener('click', startMusic);
+      });
+    });
+  </script>
 </body>
 </html>

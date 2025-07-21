@@ -2,246 +2,116 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  
-  <title>To Hafsa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="https://i.imgur.com/4idYtme.png" type="image/png" />
-
+  <title>Deathwatch - Adeptus Astartes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans&display=swap');
-
     body {
       margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom, #fbecec, #ffe4f0);
-      font-family: 'Open Sans', sans-serif;
-      color: #4b2c2c;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
+      font-family: 'Unbounded', sans-serif;
+      color: #eee;
+      background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
       overflow-x: hidden;
-      position: relative;
     }
-
-    .letter-wrapper {
-      width: 300px;
-      height: 200px;
-      background: #fff0f5;
-      border-radius: 20px;
-      border: 2px solid #c94f7c;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      cursor: pointer;
-      transition: all 0.4s ease;
-      overflow: hidden;
-      user-select: none;
-      z-index: 10; /* make sure letter is above hearts */
+    header {
+      background-color: #111;
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 2px solid #444;
     }
-
-    .letter-wrapper:hover {
-      transform: scale(1.05);
-    }
-
-    .letter-wrapper.open {
-      width: 90vw;
-      height: 90vh;
-      flex-direction: column;
-      padding: 20px;
-    }
-
-    .envelope {
-      transition: opacity 0.4s ease;
-    }
-
-    .envelope h2 {
-      white-space: nowrap;
+    header h1 {
+      font-size: 3rem;
       margin: 0;
-      font-weight: normal;
-      font-size: 1.4rem;
-      color: #c94f7c;
-      letter-spacing: 0.05em;
+      letter-spacing: 3px;
+      color: #d6af3f;
     }
-
-    .letter-wrapper.open .envelope {
-      opacity: 0;
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      background: #000;
+      padding: 1rem;
     }
-
-    .letter-content {
-      opacity: 0;
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: all 0.5s ease;
-      overflow-y: auto;
-      max-height: 100%;
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      font-weight: bold;
     }
-
-    .letter-wrapper.open .letter-content {
-      opacity: 1;
-      transform: scaleY(1);
+    nav a:hover {
+      color: #fff;
     }
-
-    h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3em;
-      margin-bottom: 10px;
-      color: #c94f7c;
+    section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
     }
-
-    p {
-      font-size: 1.2em;
-      line-height: 1.7;
-      margin-bottom: 20px;
+    section h2 {
+      color: #d6af3f;
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
-
-    .footer {
-      font-size: 0.9em;
-      color: #999;
-      margin-top: 20px;
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #000;
+      color: #666;
     }
-
-    audio {
-      display: none;
-    }
-
-    .hearts-container {
+    .bg-overlay {
       position: fixed;
-      pointer-events: none;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: visible;
-      z-index: 9999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url('https://www.wallpaperflare.com/static/417/938/65/warhammer-40k-space-marines-deathwatch-warhammer-wallpaper.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.08;
+      z-index: -1;
     }
-
-    /* Upright heart shape */
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: #c94f7c;
-      transform: rotate(0deg); /* Upright */
-      animation: floatUp 2s ease forwards;
-      opacity: 0.8;
-      filter: drop-shadow(0 0 2px #b03e67);
-      pointer-events: none;
-    }
-
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: #c94f7c;
-      border-radius: 50%;
-    }
-
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart::after {
-      top: 0;
+    audio {
+      position: fixed;
+      bottom: 10px;
       left: 10px;
-    }
-
-    @keyframes floatUp {
-      0% {
-        opacity: 0.8;
-        transform: translateY(0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-150px) scale(1.5);
-      }
+      z-index: 10;
     }
   </style>
 </head>
 <body>
-
-  <!-- 🎵 Background Music -->
-  <audio id="bg-music" loop>
-    <source src="https://raw.githubusercontent.com/Merokieo/love_letter/main/song.mp3" type="audio/mpeg" />
-    Your browser does not support audio playback.
+  <div class="bg-overlay"></div>
+  <header>
+    <h1>DEATHWATCH</h1>
+    <p>The Shield Against the Xenos</p>
+  </header>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#doctrine">Doctrine</a>
+    <a href="#killteams">Kill-Teams</a>
+    <a href="#armory">Armory</a>
+  </nav>
+  <section id="about">
+    <h2>About the Deathwatch</h2>
+    <p>The Deathwatch are the elite of the elite — chosen from all Chapters of the Adeptus Astartes to serve the Ordo Xenos in their eternal vigil against the alien menace. Bound by duty, honor, and brotherhood, they are the Emperor's wrath incarnate.</p>
+  </section>
+  <section id="doctrine">
+    <h2>Combat Doctrine</h2>
+    <p>Each Kill-Team is forged for a purpose — surgical, precise, and devastating. Missions vary from deep-strike eliminations to stealth recon operations. Adaptability and relentless execution define our tactics.</p>
+  </section>
+  <section id="killteams">
+    <h2>Kill-Teams</h2>
+    <ul>
+      <li>Kill-Team Omega: Xenos Suppression</li>
+      <li>Kill-Team Vindex: Bio-Threat Exterminators</li>
+      <li>Kill-Team Umbra: Stealth Recon & Assassination</li>
+    </ul>
+  </section>
+  <section id="armory">
+    <h2>Armory</h2>
+    <p>From sacred bolt rifles to xenotech-forged relics, the Deathwatch armory is unparalleled. All weaponry is maintained under Codex Mechanicus protocols.</p>
+  </section>
+  <footer>
+    <p>© Deathwatch LARP Command | For the Emperor!</p>
+  </footer>
+  <audio autoplay loop controls>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/31/audio_19c6658c6d.mp3?filename=dark-ambience-110093.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
   </audio>
-
-  <!-- Hearts container -->
-  <div class="hearts-container"></div>
-
-  <!-- 💌 Expanding Letter -->
-  <div class="letter-wrapper" onclick="toggleLetter(this)">
-    <div class="envelope">
-      <h2>Click to Open the Letter</h2>
-    </div>
-    <div class="letter-content">
-      <h1>To Hafsa</h1>
-      <p>
-        Dear Hafsa,<br /><br />
-        I know things have been tough lately, and I want you to remember you are not alone.<br /><br />
-        Your strength and kindness shine even in the darkest times. When the world feels heavy, know that I’m here to support you every step of the way.<br /><br />
-        Every challenge you face is a step forward, and your courage inspires me more than words can say.<br /><br />
-        Please hold onto hope and remember you are deeply cared for.<br /><br />
-        Sending you all my love and warmest thoughts. Rak Totouz
-      </p>
-      <p class="footer">With love,<br />– Ayoub</p>
-    </div>
-  </div>
-
-  <script>
-    // Volume level to 10%
-    const music = document.getElementById('bg-music');
-    music.volume = 0.1;
-
-    // Play music on first user interaction (click)
-    let musicStarted = false;
-    document.body.addEventListener('click', () => {
-      if (!musicStarted) {
-        music.play().catch(() => {
-          // Autoplay might still be blocked, but we tried
-        });
-        musicStarted = true;
-      }
-      createHeartsRandom();
-    });
-
-    // Toggle letter open/close
-    function toggleLetter(wrapper) {
-      wrapper.classList.toggle("open");
-    }
-
-    // Create 15 hearts randomly placed in viewport that float up and fade
-    function createHeartsRandom() {
-      const container = document.querySelector(".hearts-container");
-      const count = 15;
-
-      for (let i = 0; i < count; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-
-        heart.style.left = `${x}px`;
-        heart.style.top = `${y}px`;
-
-        heart.style.animationDuration = 1.5 + Math.random() * 1 + "s";
-
-        container.appendChild(heart);
-
-        heart.addEventListener("animationend", () => {
-          heart.remove();
-        });
-      }
-    }
-  </script>
 </body>
 </html>
